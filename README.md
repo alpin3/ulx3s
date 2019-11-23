@@ -6,6 +6,8 @@ Everyhing needed for ulx3s FPGA
 
 # Run
 
+If you don't plan repluggin the FPGA often, just run with device path where your FPGA is connected:
+
 ```
 docker run --device=/dev/ttyUSB0 -it alpin3/ulx3s
 ```
