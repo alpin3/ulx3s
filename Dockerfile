@@ -47,6 +47,7 @@ RUN cd $ULX3SBASEDIR && \
  make -j$(nproc) && \
  make install && \
  strip /usr/local/bin/yosys && \
+ cd $ULX3SBASEDIR && \
  git clone https://github.com/richardeoin/ftx-prog.git && \
  cd ftx-prog && \
  make CFLAGS="-I/usr/include/libftdi1" LDFLAGS="/usr/lib/libftdi1.a /usr/lib/libusb-1.0.a /usr/lib/libusb.a -static" && \
