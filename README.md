@@ -10,6 +10,33 @@ Everyhing needed for ulx3s FPGA
 docker run --device=/dev/ttyUSB0 -it alpin3/ulx3s
 ```
 
+If you don't care too much about security:
+
+```
+docker run --privileged -v /dev:/dev -it alpin3/ulx3s
+```
+
+# Static binaries
+
+If you just plan to get the static binaries yourself:
+```
+docker run -it --name ulx3sbin alpin3/ulx3s true
+docker cp ulx3sbin:/usr/local/bin static-bin
+docker rm ulx3sbin
+```
+
+If you just plan to build the static binaries yourself:
+```
+https://github.com/alpin3/ulx3s.git
+cd ulx3s
+docker build -t test/ulx3s .
+docker run -it --name ulx3sbin test/ulx3s true
+docker cp ulx3sbin:/usr/local/bin static-bin
+docker rm ulx3sbin
+```
+
+
+
 Check out [Docker - a way to give access to a host USB or serial device?](https://stackoverflow.com/questions/24225647/docker-a-way-to-give-access-to-a-host-usb-or-serial-device)
 
 
