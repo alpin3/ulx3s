@@ -50,6 +50,7 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  make -j$(nproc) && \
  make install && \
  strip /usr/local/bin/yosys && \
+ pip3 install -U apio && \
  rm -rf /opt/ghdl /opt/ghdlsynth-beta /opt/nextpnr /opt/prjtrellis /opt/yosys && \
  echo "Success [build]"
 
