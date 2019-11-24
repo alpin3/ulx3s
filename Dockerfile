@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpin3/ulx3s-core
 MAINTAINER kost - https://github.com/kost
 
 ENV ULX3SBASEDIR=/opt
@@ -11,22 +11,6 @@ RUN apk --update add git patch bash wget build-base python3-dev boost-python3 bo
 COPY root /
 
 RUN cd $ULX3SBASEDIR && \
- git clone https://github.com/emard/ulx3s-bin && \
- cd $ULX3SBASEDIR && \
- git clone https://github.com/f32c/tools f32c-tools && \
- cd f32c-tools/ujprog && \
- cp $ULX3SBASEDIR/patches/Makefile.alpine . && \
- make -f Makefile.alpine && \
- install -m 755 -s ujprog /usr/local/bin && \
- cd $ULX3SBASEDIR && \
- git clone https://git.code.sf.net/p/openocd/code openocd && \
- cd openocd && \
- ./bootstrap && \
- LDFLAGS="--static" ./configure --enable-static && \
- make -j$(nproc) && \
- make install && \
- strip /usr/local/bin/openocd && \
- cd $ULX3SBASEDIR && \
  git clone --recursive https://github.com/SymbiFlow/prjtrellis && \
  cd prjtrellis/libtrellis/ && \
  cmake -DCMAKE_INSTALL_PREFIX=/usr && \
@@ -47,21 +31,6 @@ RUN cd $ULX3SBASEDIR && \
  make -j$(nproc) && \
  make install && \
  strip /usr/local/bin/yosys && \
- cd $ULX3SBASEDIR && \
- git clone https://github.com/richardeoin/ftx-prog.git && \
- cd ftx-prog && \
- make CFLAGS="-I/usr/include/libftdi1" LDFLAGS="/usr/lib/libftdi1.a /usr/lib/libusb-1.0.a /usr/lib/libusb.a -static" && \
- install -m 755 -s ftx_prog /usr/local/bin/ && \
- cd $ULX3SBASEDIR && \
- git clone https://github.com/emard/FleaFPGA-JTAG.git && \
- cd FleaFPGA-JTAG/FleaFPGA-JTAG-linux && \
- make CFLAGS="-I/usr/include/libftdi1 /usr/lib/libftdi1.a /usr/lib/libusb-1.0.a /usr/lib/libusb.a -static" && \
- install -m 755 -s FleaFPGA-JTAG /usr/local/bin && \
- cd $ULX3SBASEDIR && \
- pip2 install esptool && \
- pip2 install pyserial && \
- pip3 install esptool && \
- pip3 install pyserial && \
  echo "Success [build]"
 
 
