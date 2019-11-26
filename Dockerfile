@@ -13,6 +13,11 @@ COPY root /
 RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  rm -f /var/cache/apk/* && \
  cd $ULX3SBASEDIR && \
+ git clone https://github.com/ldoolitt/vhd2vl.git && \
+ cd vhd2vl/src && \
+ make WARNS="-static" && \
+ install -m 755 -s vhd2vl /usr/local/bin && \
+ cd $ULX3SBASEDIR && \
  git clone --recursive https://github.com/SymbiFlow/prjtrellis && \
  cd prjtrellis/libtrellis/ && \
  cmake -DCMAKE_INSTALL_PREFIX=/usr && \
@@ -51,7 +56,7 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  make install && \
  strip /usr/local/bin/yosys && \
  pip3 install -U apio && \
- rm -rf /opt/ghdl-git /opt/ghdlsynth-beta /opt/nextpnr /opt/prjtrellis /opt/yosys && \
+ rm -rf /opt/vhd2vl /opt/ghdl-git /opt/ghdlsynth-beta /opt/nextpnr /opt/prjtrellis /opt/yosys && \
  echo "Success [build]"
 
 #VOLUME ["/fpga"]
