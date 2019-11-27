@@ -10,7 +10,7 @@ ver:
 	echo $(IMAGE) version $(VERSION)
 
 build:
-	docker build -t $(IMAGE):$(VERSION) .
+	docker build -t $(IMAGE):v$(VERSION) .
 
 push:
 	docker push $(IMAGE):v$(VERSION)
