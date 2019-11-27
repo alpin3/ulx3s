@@ -22,9 +22,9 @@ latest:
 bins:
 	docker run -it --name $(NAME)-$(VERSION) $(IMAGE) true
 	docker cp $(NAME)-$(VERSION):/usr/local/bin $(NAME)-$(VERSION)-$(ARCH)
-	docker cp $(NAME)-$(VERSION):/opt/ghdl $(NAME)-opt-$(VERSION)-$(ARCH)
+	docker cp $(NAME)-$(VERSION):/opt/ghdl $(NAME)-ghdl-$(VERSION)-$(ARCH)
 	tar -cvz --owner root --group root -f $(NAME)-$(VERSION)-$(ARCH).tar.gz $(NAME)-$(VERSION)-$(ARCH)
-	tar -cvz --owner root --group root -f $(NAME)-opt-$(VERSION)-$(ARCH).tar.gz $(NAME)-opt-$(VERSION)-$(ARCH)
+	tar -cvz --owner root --group root -f $(NAME)-ghdl-$(VERSION)-$(ARCH).tar.gz $(NAME)-ghdl-$(VERSION)-$(ARCH)
 	docker rm $(NAME)-$(VERSION)
-	rm -rf $(NAME)-$(VERSION)-$(ARCH) $(NAME)-opt-$(VERSION)-$(ARCH)
+	rm -rf $(NAME)-$(VERSION)-$(ARCH) $(NAME)-ghdl-$(VERSION)-$(ARCH)
 
