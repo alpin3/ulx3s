@@ -19,6 +19,10 @@ latest:
 	docker tag $(IMAGE):v$(VERSION) $(IMAGE):latest
 	docker push $(IMAGE):latest
 
+gittag:
+	git tag v$(VERSION)
+	git push --tags origin master
+
 bins:
 	docker run -it --name $(NAME)-$(VERSION) $(IMAGE) true
 	docker cp $(NAME)-$(VERSION):/usr/local/bin $(NAME)-$(VERSION)-$(ARCH)
