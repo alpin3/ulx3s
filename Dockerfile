@@ -20,9 +20,13 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  cd $ULX3SBASEDIR && \
  git clone --recursive https://github.com/SymbiFlow/prjtrellis && \
  cd prjtrellis/libtrellis/ && \
- cmake -DCMAKE_INSTALL_PREFIX=/usr && \
+ cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DSTATIC_BUILD=OFF -DBUILD_PYTHON=ON -DBUILD_SHARED=ON . && \
  make -j$(nproc) &&\
  make install && \
+ cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DSTATIC_BUILD=ON -DBUILD_PYTHON=OFF -DBUILD_SHARED=OFF . && \
+ make -j$(nproc) &&\
+ make install && \
+ strip /usr/local/bin/ecp* && \
  cd $ULX3SBASEDIR && \
  git clone https://github.com/YosysHQ/nextpnr.git && \
  cd nextpnr && \
