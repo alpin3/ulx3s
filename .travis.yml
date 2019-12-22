@@ -1,0 +1,7 @@
+services:
+- docker
+script:
+- docker build -t alpin3/ulx3s:$DOCKER_TAG .
+- docker login -u="$DOCKER_HUB_LOGIN" -p="$DOCKER_HUB_PASSWORD"
+- docker tag alpin3/ulx3s:$DOCKER_TAG alpin3/ulx3s:$DOCKER_TAG
+- docker push alpin3/ulx3s:$DOCKER_TAG
