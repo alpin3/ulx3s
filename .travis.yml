@@ -1,7 +1,9 @@
 services:
 - docker
 script:
-- docker build -t alpin3/ulx3s:$DOCKER_TAG .
+- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+- docker build -t alpin3/ulx3s:$BRANCH .
 - docker login -u="$DOCKER_HUB_LOGIN" -p="$DOCKER_HUB_PASSWORD"
-- docker tag alpin3/ulx3s:$DOCKER_TAG alpin3/ulx3s:$DOCKER_TAG
+- docker push alpin3/ulx3s:$BRANCH
+- docker tag alpin3/ulx3s:$BRANCH alpin3/ulx3s:$DOCKER_TAG
 - docker push alpin3/ulx3s:$DOCKER_TAG
