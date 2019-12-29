@@ -27,7 +27,7 @@ gittag:
 	git push --tags origin master
 
 bins:
-	mkdir -p dest
+	mkdir -p dist
 	mkdir -p $(NAME)-$(VERSION)-$(ARCH)
 	docker run -it --name $(NAME)-$(VERSION) $(IMAGE) true
 	docker cp $(NAME)-$(VERSION):/usr/local/bin $(NAME)-$(VERSION)-$(ARCH)/
