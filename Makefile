@@ -45,5 +45,8 @@ cpbins:
 clean:
 	rm -rf dist work
 
+rel:
+	ghr v$(VERSION) dist/
+
 draft:
 	ghr -draft v$(VERSION) dist/
