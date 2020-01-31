@@ -60,10 +60,6 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  make install && \
  strip /usr/local/bin/yosys && \
  cd $ULX3SBASEDIR && \
- pip3 install git+https://github.com/FPGAwars/apio@develop#egg=apio && \
- apio install scons && \
- apio install yosys && \
- apio install ecp5 && \
  rm -rf /opt/src /opt/micropython /opt/vhd2vl /opt/ghdl-git /opt/ghdlsynth-beta /opt/nextpnr /opt/prjtrellis /opt/yosys && \
  echo "Success [build]"
 
