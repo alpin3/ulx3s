@@ -4,7 +4,7 @@
 
 # ulx3s
 
-Everyhing needed for ulx3s FPGA
+Everyhing needed for [ulx3s FPGA](https://radiona.org/ulx3s/)
 
 # Run
 
