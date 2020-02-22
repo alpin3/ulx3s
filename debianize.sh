@@ -1,5 +1,5 @@
 #!/bin/sh
-# MAIL=mail@example.com ./debianize.sh dist/blah.tar.gz
+# EMAIL=mail@example.com ./debianize.sh dist/blah.tar.gz
 
 VERSION=`date '+%Y.%m.%d'`
 TARFILE="ulx3s-toolchain-$VERSION.tar.gz"
