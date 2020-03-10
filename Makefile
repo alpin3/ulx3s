@@ -20,16 +20,20 @@ pull:
 
 latest:
 	docker tag $(IMAGE):v$(VERSION) $(IMAGE):latest
+
+pushlatest:
 	docker push $(IMAGE):latest
 
 gittag:
 	git tag v$(VERSION)
+
+pushtags:
 	git push --tags origin master
 
 bins:
 	mkdir -p dist
 	mkdir -p $(NAME)-$(VERSION)-$(ARCH)
-	docker run -it --name $(NAME)-$(VERSION) $(IMAGE) true
+	docker run -it --name $(NAME)-$(VERSION) $(IMAGE):v$(VERSION) true
 	docker cp $(NAME)-$(VERSION):/usr/local/bin $(NAME)-$(VERSION)-$(ARCH)/
 	docker cp $(NAME)-$(VERSION):/opt/ghdl $(NAME)-$(VERSION)-$(ARCH)/
 	docker cp $(NAME)-$(VERSION):/usr/local/share $(NAME)-$(VERSION)-$(ARCH)/
