@@ -30,6 +30,9 @@ gittag:
 pushtags:
 	git push --tags origin master
 
+gitappimage:
+	git clone https://github.com/kost/ulx3s-appimage
+
 bins:
 	mkdir -p dist
 	mkdir -p $(NAME)-$(VERSION)-$(ARCH)
