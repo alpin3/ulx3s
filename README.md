@@ -4,7 +4,7 @@
 
 # ulx3s
 
-Everyhing needed for [ulx3s FPGA](https://radiona.org/ulx3s/)
+Everyhing needed for [ulx3s FPGA](https://radiona.org/ulx3s/) in binary or Docker form. Check [releases](https://github.com/alpin3/ulx3s/releases).
 
 # Run
 
