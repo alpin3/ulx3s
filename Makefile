@@ -5,6 +5,7 @@ OSTYPE=$(shell uname -s | tr '[A-Z]' '[a-z]')
 MACHINE=$(shell uname -m)
 ARCH=$(OSTYPE)-$(MACHINE)
 VERSION=$(shell date '+%Y.%m.%d')
+IMAGEVERSION=$(IMAGE):v$(VERSION)
 
 ver:
 	echo $(IMAGE) version $(VERSION)
@@ -36,7 +37,7 @@ gitappimage:
 bins:
 	mkdir -p dist
 	mkdir -p $(NAME)-$(VERSION)-$(ARCH)
-	docker run -it --name $(NAME)-$(VERSION) $(IMAGE):v$(VERSION) true
+	docker run -it --name $(NAME)-$(VERSION) $(IMAGEVERSION) true
 	docker cp $(NAME)-$(VERSION):/usr/local/bin $(NAME)-$(VERSION)-$(ARCH)/
 	docker cp $(NAME)-$(VERSION):/opt/ghdl $(NAME)-$(VERSION)-$(ARCH)/
 	docker cp $(NAME)-$(VERSION):/usr/local/share $(NAME)-$(VERSION)-$(ARCH)/
@@ -45,7 +46,7 @@ bins:
 	rm -rf $(NAME)-$(VERSION)-$(ARCH)
 
 cpbins:
-	docker run -it --name $(NAME)-$(VERSION) $(IMAGE):v$(VERSION) true
+	docker run -it --name $(NAME)-$(VERSION) $(IMAGEVERSION) true
 	docker cp $(NAME)-$(VERSION):/usr/local/bin $(NAME)-$(VERSION)-$(ARCH)
 	docker rm $(NAME)-$(VERSION)
 
