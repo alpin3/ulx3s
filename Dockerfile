@@ -1,7 +1,7 @@
 FROM alpin3/ulx3s-core
 MAINTAINER kost - https://github.com/kost
 
-ENV ULX3SBASEDIR=/opt GHDLSRC=/opt/ghdl-git GHDLOPT=/opt/ghdl
+ENV ULX3SBASEDIR=/opt GHDLSRC=/opt/ghdl-git GHDLOPT=/opt/ghdl GHDLHASH=b42e6143c51ccb50646228046130f3ffe5a7fbbb
 
 # qt5-qtbase-dev
 RUN apk --update add git patch bash wget build-base python3-dev boost-python3 boost-static boost-dev libusb-dev libusb-compat-dev libftdi1-dev libtool automake autoconf make cmake pkgconf eigen-dev eigen bison flex gawk libffi-dev zlib-dev tcl-dev graphviz readline-dev py2-pip libgnat gcc-gnat libunwind-dev readline-dev ncurses-static && \
@@ -38,6 +38,7 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  cd $ULX3SBASEDIR && \
  git clone https://github.com/ghdl/ghdl.git $GHDLSRC && \
  cd $GHDLSRC && \
+ git reset --hard $GHDLHASH
  cp -f $ULX3SBASEDIR/patches/Makefile.in . && \
  ./configure --enable-libghdl --enable-synth --prefix=$GHDLOPT && \
  sed -i '/^LDFLAGS=/ s/$/ -lunwind/' Makefile && \
