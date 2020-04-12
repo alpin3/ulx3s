@@ -65,7 +65,7 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  strip /usr/local/bin/yosys && \
  cd $ULX3SBASEDIR && \
  rm -rf /opt/src /opt/micropython /opt/vhd2vl /opt/ghdl-git /opt/ghdlsynth-beta /opt/nextpnr /opt/prjtrellis /opt/yosys && \
- echo "Success [build]"
+ echo "[i] Success [build]"
 
 #VOLUME ["/fpga"]
 #WORKDIR /opt
