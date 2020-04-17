@@ -60,6 +60,7 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  cd yosys && \
  patch -p1 < $ULX3SBASEDIR/patches/yosys.diff && \
  cp -a $ULX3SBASEDIR/patches/Makefile.conf . && \
+ cp -af $ULX3SBASEDIR/patches/qbfsat.cc passes/sat/ && \
  make -j$(nproc) && \
  make install && \
  strip /usr/local/bin/yosys && \
