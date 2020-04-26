@@ -6,7 +6,7 @@ ENV ULX3SBASEDIR=/opt GHDLSRC=/opt/ghdl-git GHDLOPT=/opt/ghdl GHDLHASH=b42e6143c
 # qt5-qtbase-dev
 RUN apk --update add git patch bash wget build-base python3-dev boost-python3 boost-static boost-dev libusb-dev libusb-compat-dev libftdi1-dev libtool automake autoconf make cmake pkgconf eigen-dev eigen bison flex gawk libffi-dev zlib-dev tcl-dev graphviz readline-dev py2-pip libgnat gcc-gnat libunwind-dev readline-dev ncurses-static && \
  rm -f /var/cache/apk/* && \
- echo "[i] Success [deps] "
+ echo "[i] Success [v1] [deps]"
 
 COPY root /
 
