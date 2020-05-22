@@ -1,0 +1,36 @@
+--- Makefile.in.orig
++++ Makefile.in
+@@ -31,7 +31,7 @@
+ PIC_FLAGS=@PIC_FLAGS@
+ gcc_src_dir=@gcc_src_dir@
+ LLVM_CONFIG=@llvm_config@
+-LDFLAGS=@LDFLAGS@
++LDFLAGS=@LDFLAGS@ -lunwind
+ LIBBACKTRACE=@backtrace_lib@
+ llvm_be=@llvm_be@
+ build_mode=@build_mode@
+@@ -585,6 +585,24 @@
+ 	for d in $(VHDLLIB_SUBDIRS); do \
+ 	  $(MKDIR) -p $(LIBDST_DIR)/$$d; \
+ 	done
++
++GHDL_SYNTHLIB_INCFLAGS=$(GHDL_COMMON_INCFLAGS) -aI$(srcdir)/src/synth -aI$(srcdir)/src/ghdldrv
++
++libghdlsynth.a: $(GRT_SRC_DEPS) version.ads force
++	$(GNATMAKE) -c libghdlsynth $(GNATFLAGS) -gnat12 $(GHDL_SYNTHLIB_INCFLAGS)
++	gnatbind -Llibghdlsynth_ libghdlsynth.ali -O > ghdlsynth.files
++#       Extract link options, be sure to link statically with libgnat
++	gnatbind -Llibghdlsynth_ libghdlsynth.ali -K -Z | sed -e '\@adalib/$$@s/-L//' -e '\@adalib/@s@adalib/@adalib/libgnat.a@' -e '/-lgnat/d' > ghdlsynth.link
++	$(GNATMAKE) -c b~libghdlsynth.adb
++	$(RM) -f $@
++	ar rc $@ b~libghdlsynth.o `cat ghdlsynth.files`
++	gnatbind -Llibghdl pic/libghdl.ali -O > libghdl.files
++	gnatbind -Llibghdl pic/libghdl.ali -K -Z |sed -e '\@adalib/$$@s/-L//' -e '\@adalib/@s@adalib/@adalib/libgnat.a@' -e '/-lgnat/d' > libghdl.link
++	ar rc libghdl.a b~libghdl.o `cat libghdl.files` pic/grt-cstdio.o
++
++libghdlsynth.a-install: libghdlsynth.a ghdlsynth.link
++	$(INSTALL_DATA) -p libghdlsynth.a $(DESTDIR)$(libdir)/
++	$(INSTALL_DATA) -p ghdlsynth.link $(DESTDIR)$(libdir)/
+ 
+ # Remove non GPL compatible source files
+ clean-pure-gpl:

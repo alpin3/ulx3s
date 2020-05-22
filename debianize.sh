@@ -1,8 +1,15 @@
 #!/bin/sh
 # EMAIL=mail@example.com ./debianize.sh dist/blah.tar.gz
 
-VERSION=`date '+%Y.%m.%d'`
-TARFILE="ulx3s-toolchain-$VERSION.tar.gz"
+if [ "x$VERSION" = "x" ]; then
+	VERSION=`date '+%Y.%m.%d'`
+fi
+if [ "x$EMAIL" = "x" ]; then
+	EMAIL=unknown@example.com
+fi
+if [ "x$TARFILE" = "x" ]; then
+	TARFILE="ulx3s-toolchain-$VERSION.tar.gz"
+fi
 
 set -x
 

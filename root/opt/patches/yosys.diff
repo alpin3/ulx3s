@@ -1,8 +1,6 @@
-diff --git a/Makefile b/Makefile
-index 6e7681cf..9d106d97 100644
---- a/Makefile
-+++ b/Makefile
-@@ -20,6 +20,7 @@ ENABLE_COVER := 1
+--- yosys.orig/Makefile
++++ yosys/Makefile
+@@ -21,6 +21,7 @@
  ENABLE_LIBYOSYS := 0
  ENABLE_PROTOBUF := 0
  ENABLE_ZLIB := 1
@@ -10,16 +8,17 @@ index 6e7681cf..9d106d97 100644
  
  # python wrappers
  ENABLE_PYOSYS := 0
-@@ -73,7 +74,7 @@ all: top-all
+@@ -81,7 +82,8 @@
  YOSYS_SRC := $(dir $(firstword $(MAKEFILE_LIST)))
  VPATH := $(YOSYS_SRC)
  
 -CXXFLAGS := $(CXXFLAGS) -Wall -Wextra -ggdb -I. -I"$(YOSYS_SRC)" -MD -D_YOSYS_ -fPIC -I$(PREFIX)/include
++# CXXFLAGS := $(CXXFLAGS) -Wall -Wextra -ggdb -I. -I"$(YOSYS_SRC)" -MD -D_YOSYS_ -fPIC -I$(PREFIX)/include
 +CXXFLAGS := $(CXXFLAGS) -Wall -Wextra -g -I. -I"$(YOSYS_SRC)" -MD -D_YOSYS_ -fPIC -I$(PREFIX)/include
- LDFLAGS := $(LDFLAGS) -L$(LIBDIR)
  LDLIBS := $(LDLIBS) -lstdc++ -lm
  PLUGIN_LDFLAGS :=
-@@ -165,7 +166,7 @@ endif
+ 
+@@ -183,7 +185,7 @@
  ifeq ($(CONFIG),clang)
  CXX = clang
  LD = clang++
@@ -28,10 +27,11 @@ index 6e7681cf..9d106d97 100644
  ABCMKARGS += ARCHFLAGS="-DABC_USE_STDINT_H"
  
  ifneq ($(SANITIZER),)
-@@ -470,6 +471,16 @@ ifeq ($(ENABLE_PROTOBUF),1)
+@@ -523,6 +525,16 @@
+ ifeq ($(ENABLE_PROTOBUF),1)
  LDLIBS += $(shell pkg-config --cflags --libs protobuf)
  endif
- 
++
 +ifeq ($(ENABLE_GHDL),1)
 +GHDL_DIR ?= /usr/local/ghdl
 +GHDL_INCLUDE_DIR ?= $(GHDL_DIR)/include
@@ -41,7 +41,6 @@ index 6e7681cf..9d106d97 100644
 +endif
 +
 +LDLIBS += $(EXTRA_LIBS)
-+
+ 
  ifeq ($(ENABLE_COVER),1)
  CXXFLAGS += -DYOSYS_ENABLE_COVER
- endif
