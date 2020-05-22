@@ -1,5 +1,5 @@
---- Makefile.in.orig
-+++ Makefile.in
+--- ghdl-orig/Makefile.in
++++ ghdl/Makefile.in
 @@ -31,7 +31,7 @@
  PIC_FLAGS=@PIC_FLAGS@
  gcc_src_dir=@gcc_src_dir@
@@ -9,7 +9,7 @@
  LIBBACKTRACE=@backtrace_lib@
  llvm_be=@llvm_be@
  build_mode=@build_mode@
-@@ -585,6 +585,24 @@
+@@ -585,6 +585,26 @@
  	for d in $(VHDLLIB_SUBDIRS); do \
  	  $(MKDIR) -p $(LIBDST_DIR)/$$d; \
  	done
@@ -31,6 +31,8 @@
 +libghdlsynth.a-install: libghdlsynth.a ghdlsynth.link
 +	$(INSTALL_DATA) -p libghdlsynth.a $(DESTDIR)$(libdir)/
 +	$(INSTALL_DATA) -p ghdlsynth.link $(DESTDIR)$(libdir)/
++	$(INSTALL_DATA) -p libghdl.a $(DESTDIR)$(libdir)/
++	$(INSTALL_DATA) -p libghdl.link $(DESTDIR)$(libdir)/
  
  # Remove non GPL compatible source files
  clean-pure-gpl:

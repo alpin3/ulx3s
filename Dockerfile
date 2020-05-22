@@ -40,7 +40,7 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  ln -sf /usr/lib/libgnarl.a /usr/lib/libgnarl-8.a && \
  git clone https://github.com/ghdl/ghdl.git $GHDLSRC && \
  cd $GHDLSRC && \
- patch -p0 < $ULX3SBASEDIR/patches/gdhl-git.patch && \
+ patch -p1 < $ULX3SBASEDIR/patches/ghdl.patch && \
  ./configure --enable-libghdl --enable-synth --prefix=$GHDLOPT && \
  make && \
  rm ghdl_mcode && \
