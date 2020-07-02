@@ -6,7 +6,7 @@ ENV ULX3SBASEDIR=/opt GHDLSRC=/opt/ghdl-git GHDLOPT=/opt/ghdl
 # qt5-qtbase-dev
 RUN apk --update add git patch bash wget build-base python3-dev boost-python3 boost-static boost-dev libusb-dev libusb-compat-dev libftdi1-dev libtool automake autoconf make cmake pkgconf eigen-dev eigen bison flex gawk libffi-dev zlib-dev tcl-dev graphviz readline-dev py2-pip libgnat gcc-gnat libunwind-dev readline-dev ncurses-static && \
  rm -f /var/cache/apk/* && \
- echo "[i] Success [v3] [deps]"
+ echo "[i] Success [v4] [deps]"
 
 COPY root /
 
@@ -27,6 +27,7 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  make -j$(nproc) &&\
  make install && \
  strip /usr/local/bin/ecp* && \
+ ln -sf /usr/local/lib64/trellis /usr/local/lib/trellis && \
  cd $ULX3SBASEDIR && \
  git clone https://github.com/YosysHQ/nextpnr.git && \
  cd nextpnr && \
