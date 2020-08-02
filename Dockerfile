@@ -4,9 +4,9 @@ MAINTAINER kost - https://github.com/kost
 ENV ULX3SBASEDIR=/opt GHDLSRC=/opt/ghdl-git GHDLOPT=/opt/ghdl
 
 # qt5-qtbase-dev
-RUN apk --update add git patch bash wget build-base python3-dev boost-python3 boost-static boost-dev libusb-dev libusb-compat-dev libftdi1-dev libtool automake autoconf make cmake pkgconf eigen-dev eigen bison flex gawk libffi-dev zlib-dev tcl-dev graphviz readline-dev py2-pip libgnat gcc-gnat libunwind-dev readline-dev ncurses-static && \
+RUN apk --update add git patch bash wget build-base python3-dev boost-python3 boost-static boost-dev libusb-dev libusb-compat-dev libftdi1-dev libtool automake autoconf make cmake pkgconf eigen-dev eigen bison flex gawk libffi-dev zlib-dev tcl-dev graphviz readline-dev py2-pip libgnat gcc-gnat libunwind-dev readline-dev ncurses-static openjdk11 util-linux-dev && \
  rm -f /var/cache/apk/* && \
- echo "[i] Success [v7] [deps]"
+ echo "[i] Success [v1] [deps]"
 
 COPY root /
 
@@ -63,7 +63,15 @@ RUN apk add -f --allow-untrusted $ULX3SBASEDIR/apk/libgnat-8.3.0-r0.apk && \
  make install && \
  strip /usr/local/bin/yosys && \
  cd $ULX3SBASEDIR && \
- rm -rf /opt/src /opt/micropython /opt/vhd2vl /opt/ghdl-git /opt/ghdlsynth-beta /opt/nextpnr /opt/prjtrellis /opt/yosys && \
+ git clone -b wip --recurse-submodules https://github.com/sylefeb/Silice.git && \
+ cd Silice && \
+ export PATH=/usr/lib/jvm/java-11-openjdk/bin:$PATH && \
+ mkdir build && cd build && \
+ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-static" -G "Unix Makefiles" .. && \
+ make -j `nproc` && \
+ install -m 755 -s silice /usr/local/bin && \
+ cd $ULX3SBASEDIR && \
+ rm -rf /opt/src /opt/micropython /opt/vhd2vl /opt/ghdl-git /opt/ghdlsynth-beta /opt/nextpnr /opt/prjtrellis /opt/yosys /opt/Silice && \
  echo "[i] Success: [build]"
 
 #VOLUME ["/fpga"]
